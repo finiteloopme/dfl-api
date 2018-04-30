@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API for DFL",
+    "description": "Managed API ",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/dfl": {},
+    "/dfl/ladder": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dfl/fixture/": {},
+    "/dfl/results/": {
+      "get": {
+        "description": "Return the *current* result given the *round number* and *game id*",
+        "operationId": "game-results",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "round",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "game",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "team": {
+        "required": [],
+        "properties": {
+          "teamCode": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "teamUri": {
+            "type": "string"
+          }
+        }
+      },
+      "game": {
+        "properties": {
+          "game": {
+            "description": "ID to identify game for each round",
+            "type": "string"
+          },
+          "homeTeam": {
+            "$ref": "#/components/schemas/team"
+          },
+          "homeTeamScore": {
+            "type": "string"
+          },
+          "awayTeam": {
+            "$ref": "#/components/schemas/team"
+          },
+          "awayTeamScore": {
+            "type": "string"
+          },
+          "resultURI": {
+            "type": "string"
+          }
+        }
+      },
+      "fixture": {
+        "properties": {
+          "round": {
+            "type": "string"
+          },
+          "games": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/game"
+            }
+          }
+        }
+      }
+    }
+  }
+}
